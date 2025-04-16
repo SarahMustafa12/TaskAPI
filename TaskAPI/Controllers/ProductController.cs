@@ -52,8 +52,10 @@ namespace TaskAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetOne([FromRoute]int id)
         {
-            var allProducts = _unintOfWork.Products.Get(e=>e.Id==id,includes: [e => e.ProductImages]);
-            return Ok(allProducts);
+            var product = _unintOfWork.Products.Get(e=>e.Id==id,includes: [e => e.ProductImages]);
+            if (product!= null)
+                return NotFound();
+            return Ok(product);
         }
 
       
